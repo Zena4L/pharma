@@ -26,7 +26,6 @@ export const loggedIn: RequestHandler = (req, res, next) => {
     ) as Payload;
 
     req.currentUser = payload;
-    console.log(req.currentUser);
   } catch (err) {
     console.log(err);
   }

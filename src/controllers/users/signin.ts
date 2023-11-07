@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 export const signin: RequestHandler = async (req, res, next) => {
   const { email, password } = req.body;
 
-  const existingUser = await User.findOne({ email });
+  const existingUser = await User.findOne({ email }).populate("cart");
 
   if (!existingUser) {
     return next(new BadRequestError("Invalid email or password"));

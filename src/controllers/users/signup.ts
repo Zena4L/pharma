@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
 import User from "../../models/user";
+import Cart from "../../models/cart";
 import { BadRequestError } from "../../errors/badRequestError";
 import jwt from "jsonwebtoken";
 
@@ -14,6 +15,10 @@ export const signup: RequestHandler = async (req, res, next) => {
 
   const user = User.build({ email, password, profile });
   await user.save();
+
+  // Create an empty cart for the new user and associate it with the user
+  const cart = new Cart({ user: user._id, items: [] });
+  await cart.save();
 
   const userJwt = jwt.sign(
     {

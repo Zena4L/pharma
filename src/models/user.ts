@@ -1,25 +1,31 @@
 import mongoose from "mongoose";
 import { Password } from "../utils/password";
 
-// this interface is for the user collection
+interface CartItem {
+  product: mongoose.Schema.Types.ObjectId;
+  quantity: number;
+}
 
 interface UserAttrs {
   email: string;
   password: string;
-  profile: string;
+  profile: {
+    name: string;
+    address: string;
+  };
 }
-
-// this interface is for user model. it describe the properties on a user model
 
 interface UserModel extends mongoose.Model<UserDoc> {
-  build(attrs: UserAttrs): any;
+  build(attrs: UserAttrs): UserDoc;
 }
 
-// this is a user docement interfaces.
 interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
-  profile: object;
+  profile: {
+    name: string;
+    address: string;
+  };
 }
 
 const userSchema = new mongoose.Schema(
@@ -40,6 +46,10 @@ const userSchema = new mongoose.Schema(
     profile: {
       name: String,
       address: String,
+    },
+    cart: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Cart",
     },
   },
   {

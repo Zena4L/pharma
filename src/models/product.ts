@@ -10,7 +10,7 @@ interface ProductAttrs {
 }
 
 interface ProductModel extends mongoose.Model<ProductDoc> {
-  build(attrs: ProductAttrs): any;
+  build(attrs: ProductAttrs): ProductDoc;
 }
 
 interface ProductDoc extends mongoose.Document {

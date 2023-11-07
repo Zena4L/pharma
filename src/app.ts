@@ -16,6 +16,8 @@ import { getProduct } from "./routes/products/getProduct";
 import { updateProduct } from "./routes/products/updateProduct";
 import { deleteProduct } from "./routes/products/deleteProduct";
 
+import { addToCart } from "./routes/carts/addCart";
+
 import "express-async-errors";
 
 const app = express();
@@ -27,7 +29,7 @@ morgan("dev");
 app.use(
   cookieSession({
     signed: false,
-    secure: process.env.NODE_ENV !== "test",
+    secure: false,
   })
 );
 
@@ -41,6 +43,8 @@ app.use(allProduct);
 app.use(getProduct);
 app.use(updateProduct);
 app.use(deleteProduct);
+
+app.use(addToCart);
 
 app.all("*", (req, res, next) => {
   return next(new NotFoundError(req));

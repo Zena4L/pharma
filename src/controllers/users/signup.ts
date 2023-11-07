@@ -16,7 +16,6 @@ export const signup: RequestHandler = async (req, res, next) => {
   const user = User.build({ email, password, profile });
   await user.save();
 
-  // Create an empty cart for the new user and associate it with the user
   const cart = new Cart({ user: user._id, items: [] });
   await cart.save();
 

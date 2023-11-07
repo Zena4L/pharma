@@ -17,6 +17,7 @@ import { updateProduct } from "./routes/products/updateProduct";
 import { deleteProduct } from "./routes/products/deleteProduct";
 
 import { addToCart } from "./routes/carts/addCart";
+import { userCart } from "./routes/carts/getUserCart";
 
 import "express-async-errors";
 
@@ -45,6 +46,7 @@ app.use(updateProduct);
 app.use(deleteProduct);
 
 app.use(addToCart);
+app.use(userCart);
 
 app.all("*", (req, res, next) => {
   return next(new NotFoundError(req));

@@ -1,49 +1,48 @@
-import mongoose, { Document, Model, Schema } from 'mongoose';
+import mongoose, { Schema, Document, Model } from "mongoose";
 
-// interface CartAttrs {
-//   user: mongoose.Types.ObjectId;
-//   product: mongoose.Types.ObjectId;
-//   quantity: number;
-// }
+interface CartItem {
+  productId: mongoose.Types.ObjectId;
+  quantity: number;
+  name: string;
+  price: number;
+}
 
-// interface CartModel extends mongoose.Model<CartDoc> {
-//   build(attrs: CartAttrs): CartDoc;
-// }
+interface CartAttrs {
+  userId: mongoose.Types.ObjectId;
+  products: CartItem[];
+}
 
-// interface CartDoc extends mongoose.Document{
-//   user: mongoose.Types.ObjectId;
-//   product: mongoose.Types.ObjectId;
-//   quantity: number;
-// }
-const cartSchema = new Schema(
-  {
-    userId: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    },
-    products: [
-      {
-        productId: Number,
-        quantity: Number,
-        name: String,
-        price: Number
-      }
-    ],
+interface CartDoc extends Document {
+  userId: mongoose.Types.ObjectId;
+  products: CartItem[];
+}
+
+interface CartModel extends Model<CartDoc> {
+  build(attrs: CartAttrs): CartDoc;
+}
+
+const cartSchema = new Schema<CartDoc, CartModel>({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
-  {
-    toJSON: {
-      transform(doc, ret) {
-        delete ret.__v;
+  products: [
+    {
+      productId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Product",
       },
+      quantity: Number,
+      name: String,
+      price: Number,
     },
-  }
-);
+  ],
+});
 
-// cartSchema.statics.build = (attrs: CartAttrs) => {
-//   return new Cart(attrs);
-// };
+cartSchema.statics.build = (attrs: CartAttrs) => {
+  return new Cart(attrs);
+};
 
-// const Cart = mongoose.model<CartDoc, CartModel>('Cart', cartSchema);
-const Cart = mongoose.model('Cart',cartSchema)
+const Cart = mongoose.model<CartDoc, CartModel>("Cart", cartSchema);
 
 export default Cart;

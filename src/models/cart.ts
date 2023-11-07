@@ -15,49 +15,32 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 //   product: mongoose.Types.ObjectId;
 //   quantity: number;
 // }
-const cartSchema = new mongoose.Schema({
-  items: [
-    {
-      productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
-      qty: {
-        type: Number,
-        default: 0,
-      },
-      price: {
-        type: Number,
-        default: 0,
-      },
-      title: {
-        type: String,
-      },
-      productCode: {
-        type: String,
+const cartSchema = new Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+    },
+    product: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Product', // Assuming the product is related to a "Product" model
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now(),
+    },
+    quantity: {
+      type: Number,
+    },
+  },
+  {
+    toJSON: {
+      transform(doc, ret) {
+        delete ret.__v;
       },
     },
-  ],
-  totalQty: {
-    type: Number,
-    default: 0,
-    required: true,
-  },
-  totalCost: {
-    type: Number,
-    default: 0,
-    required: true,
-  },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: false,
-  },
-  createdAt: {
-    type: Date,
-    default: Date.now,
-  },
-});
+  }
+);
 
 // cartSchema.statics.build = (attrs: CartAttrs) => {
 //   return new Cart(attrs);

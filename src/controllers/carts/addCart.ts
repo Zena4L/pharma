@@ -6,7 +6,9 @@ export const addToCart: RequestHandler = async (req, res, next) => {
     const { productId, quantity } = req.body;
     const userId = req.currentUser?.id;
 
-    let cart = await Cart.findOne({ user: userId });
+    let cart = await Cart.findOne({ user: userId }).populate({
+      path: "items.product",
+    });
 
     if (!cart) {
       cart = new Cart({ user: userId, items: [] });

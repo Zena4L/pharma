@@ -11,6 +11,7 @@ import { signout } from "./routes/users/signout";
 import { currentuser } from "./routes/users/curretUser";
 
 import { newProduct } from "./routes/products/newProduct";
+import { allProduct } from "./routes/products/allProduct";
 
 import "express-async-errors";
 
@@ -33,6 +34,7 @@ app.use(signout);
 app.use(currentuser);
 
 app.use(newProduct);
+app.use(allProduct);
 
 app.all("*", (req, res, next) => {
   return next(new NotFoundError(req));

@@ -12,6 +12,9 @@ import { currentuser } from "./routes/users/curretUser";
 
 import { newProduct } from "./routes/products/newProduct";
 import { allProduct } from "./routes/products/allProduct";
+import { getProduct } from "./routes/products/getProduct";
+import { updateProduct } from "./routes/products/updateProduct";
+import { deleteProduct } from "./routes/products/deleteProduct";
 
 import "express-async-errors";
 
@@ -35,6 +38,9 @@ app.use(currentuser);
 
 app.use(newProduct);
 app.use(allProduct);
+app.use(getProduct);
+app.use(updateProduct);
+app.use(deleteProduct);
 
 app.all("*", (req, res, next) => {
   return next(new NotFoundError(req));

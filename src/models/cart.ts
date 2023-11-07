@@ -17,21 +17,18 @@ import mongoose, { Document, Model, Schema } from 'mongoose';
 // }
 const cartSchema = new Schema(
   {
-    user: {
+    userId: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
+      ref: "User"
     },
-    product: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Product', // Assuming the product is related to a "Product" model
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now(),
-    },
-    quantity: {
-      type: Number,
-    },
+    products: [
+      {
+        productId: Number,
+        quantity: Number,
+        name: String,
+        price: Number
+      }
+    ],
   },
   {
     toJSON: {

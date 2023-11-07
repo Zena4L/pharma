@@ -2,12 +2,15 @@ import express, { json } from "express";
 import cookieSession from "cookie-session";
 import morgan from "morgan";
 
+import { NotFoundError } from "./errors/notFoundError";
 import { globalError } from "./middlewares/globalError";
+
 import { signup } from "./routes/users/signup";
 import { signin } from "./routes/users/signin";
 import { signout } from "./routes/users/signout";
 import { currentuser } from "./routes/users/curretUser";
-import { NotFoundError } from "./errors/notFoundError";
+
+import { newProduct } from "./routes/products/newProduct";
 
 import "express-async-errors";
 
@@ -28,6 +31,8 @@ app.use(signup);
 app.use(signin);
 app.use(signout);
 app.use(currentuser);
+
+app.use(newProduct);
 
 app.all("*", (req, res, next) => {
   return next(new NotFoundError(req));

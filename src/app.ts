@@ -16,8 +16,8 @@ import { getProduct } from "./routes/products/getProduct";
 import { updateProduct } from "./routes/products/updateProduct";
 import { deleteProduct } from "./routes/products/deleteProduct";
 
-import { addToCart } from "./routes/carts/addCart";
 import { userCart } from "./routes/carts/getUserCart";
+// import { addCart } from "./routes/carts/addCart";
 
 import "express-async-errors";
 
@@ -45,7 +45,7 @@ app.use(getProduct);
 app.use(updateProduct);
 app.use(deleteProduct);
 
-app.use(addToCart);
+// app.use(addCart);
 app.use(userCart);
 
 app.all("*", (req, res, next) => {

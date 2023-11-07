@@ -1,50 +1,69 @@
-import mongoose, { Document } from "mongoose";
+import mongoose, { Document, Model, Schema } from 'mongoose';
 
-interface CartItem {
-  product: mongoose.Schema.Types.ObjectId;
-  quantity: number;
-}
+// interface CartAttrs {
+//   user: mongoose.Types.ObjectId;
+//   product: mongoose.Types.ObjectId;
+//   quantity: number;
+// }
 
-interface CartAttrs {
-  user: mongoose.Schema.Types.ObjectId;
-  items: CartItem[];
-}
+// interface CartModel extends mongoose.Model<CartDoc> {
+//   build(attrs: CartAttrs): CartDoc;
+// }
 
-interface CartModel extends mongoose.Model<CartDoc> {
-  build(attrs: CartAttrs): CartDoc;
-}
-
-interface CartDoc extends Document {
-  user: mongoose.Schema.Types.ObjectId;
-  items: CartItem[];
-}
-
+// interface CartDoc extends mongoose.Document{
+//   user: mongoose.Types.ObjectId;
+//   product: mongoose.Types.ObjectId;
+//   quantity: number;
+// }
 const cartSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-    required: true,
-    unique: true,
-  },
   items: [
     {
-      product: {
+      productId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Product",
-        required: true,
       },
-      quantity: {
+      qty: {
         type: Number,
-        required: true,
+        default: 0,
+      },
+      price: {
+        type: Number,
+        default: 0,
+      },
+      title: {
+        type: String,
+      },
+      productCode: {
+        type: String,
       },
     },
   ],
+  totalQty: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+  totalCost: {
+    type: Number,
+    default: 0,
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+    required: false,
+  },
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-cartSchema.statics.build = (attrs: CartAttrs) => {
-  return new Cart(attrs);
-};
+// cartSchema.statics.build = (attrs: CartAttrs) => {
+//   return new Cart(attrs);
+// };
 
-const Cart = mongoose.model<CartDoc, CartModel>("Cart", cartSchema);
+// const Cart = mongoose.model<CartDoc, CartModel>('Cart', cartSchema);
+const Cart = mongoose.model('Cart',cartSchema)
 
 export default Cart;

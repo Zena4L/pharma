@@ -1,33 +1,27 @@
 import { RequestHandler } from "express";
 import Cart from "../../models/cart";
+import mongoose from "mongoose";
 
 export const addToCart: RequestHandler = async (req, res, next) => {
   try {
-    const { productId, quantity } = req.body;
-    const userId = req.currentUser?.id;
+   
+    if(!req.body.product) req.body.product = req.params.id;
+    // if(!req.body.user) req.body.user = req.currentUser?.id;
 
-    let cart = await Cart.findOne({ user: userId }).populate({
-      path: "items.product",
-    });
+    // const {quantity} = req.body;
+    // const productId = new mongoose.Types.ObjectId(req.body.product);
 
-    if (!cart) {
-      cart = new Cart({ user: userId, items: [] });
-    }
+    // const cart = Cart.build({
+    //   user: req.body.user,
+    //   product: productId,
+    //   quantity,
+    // });
 
-    const cartItem = cart.items.find(
-      (item) => item.product.toString() === productId
-    );
+    console.log(req.currentUser)
+    res.status(200).send('helo')
 
-    if (cartItem) {
-      cartItem.quantity = quantity;
-    } else {
-      cart.items.push({ product: productId, quantity });
-    }
-
-    await cart.save();
-
-    res.status(200).send(cart);
   } catch (err) {
+    console.log(err)
     res.status(500).send({ message: "Failed to update the cart" });
   }
 };

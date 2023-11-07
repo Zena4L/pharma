@@ -2,8 +2,8 @@ import { Router } from "express";
 import { loggedIn } from "../../middlewares/loggedIn";
 import { addToCart } from "../../controllers/carts/addCart";
 
-const router = Router();
+const router = Router({ mergeParams: true });
 
-router.post("/api/v1/addItem", loggedIn, addToCart);
+router.post('/cart', loggedIn, addToCart);
 
-export { router as addToCart };
+export { router as addCart };

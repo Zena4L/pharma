@@ -1,6 +1,7 @@
 import express, { json } from "express";
 import cookieSession from "cookie-session";
 import morgan from "morgan";
+import cors from "cors";
 
 import { NotFoundError } from "./errors/notFoundError";
 import { globalError } from "./middlewares/globalError";
@@ -19,6 +20,9 @@ import { deleteProduct } from "./routes/products/deleteProduct";
 import { addCart } from "./routes/carts/addCart";
 import { checkout } from "./routes/carts/checkout";
 
+import { allOrders } from "./routes/orders/allOrders";
+import { orderStatus } from "./routes/orders/orderStatus";
+
 import "express-async-errors";
 
 const app = express();
@@ -27,6 +31,7 @@ app.use(json());
 
 morgan("dev");
 
+app.use(cors());
 app.use(
   cookieSession({
     signed: false,
@@ -47,6 +52,9 @@ app.use(deleteProduct);
 
 app.use(addCart);
 app.use(checkout);
+
+app.use(allOrders);
+app.use(orderStatus);
 
 app.all("*", (req, res, next) => {
   return next(new NotFoundError(req));

@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --watchAll --no-cache",
     "start": "ts-node-dev src/server.ts",
+    "build": "tsc",
     "prod": "NODE_ENV=production  dist/server.js"
   },
   "jest": {

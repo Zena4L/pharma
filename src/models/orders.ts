@@ -5,6 +5,7 @@ interface OrderItem {
   quantity: number;
   name: string;
   price: number;
+  image: string;
 }
 
 interface OrderAttrs {
@@ -13,6 +14,7 @@ interface OrderAttrs {
   status: string; // You can use an enum for order status
   orderItems: OrderItem[];
   total: number;
+  image: string;
 }
 
 interface OrderDoc extends Document {
@@ -21,13 +23,14 @@ interface OrderDoc extends Document {
   status: string;
   orderItems: OrderItem[];
   total: number;
+  image: string;
 }
 
 interface OrderModel extends Model<OrderDoc> {
   build(attrs: OrderAttrs): OrderDoc;
 }
 
-const orderSchema = new Schema<OrderDoc, OrderModel>({
+const orderSchema = new Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
@@ -55,6 +58,10 @@ const orderSchema = new Schema<OrderDoc, OrderModel>({
   total: {
     type: Number,
     required: true,
+  },
+  image: {
+    type: String,
+    require: [true, "must upload prescription image"],
   },
 });
 

@@ -9,5 +9,6 @@ export const globalError = (
   if (err instanceof CustomError) {
     return res.status(err.statusCode).send(err.output());
   }
-  res.status(500).send([{ message: "something went wrong, try again later" }]);
+  // res.status(500).send([{ message: "something went wrong, try again later" }]);
+  res.status(500).send([{ message: err }]);
 };

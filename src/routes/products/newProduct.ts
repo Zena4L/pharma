@@ -19,6 +19,7 @@ router.post(
     body("image").notEmpty().trim().withMessage("Must have an image"),
   ],
   requestValidation,
+
   createProduct
 );
 

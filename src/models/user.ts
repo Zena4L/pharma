@@ -26,6 +26,7 @@ interface UserDoc extends mongoose.Document {
     name: string;
     address: string;
   };
+  role: string;
 }
 
 const userSchema = new mongoose.Schema(

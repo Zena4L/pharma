@@ -2,6 +2,8 @@ import { Router } from "express";
 import { body } from "express-validator";
 import { requestValidation } from "../../middlewares/requestValidator";
 import { updateProduct } from "../../controllers/products/updateProduct";
+import { notAuthorized } from "../../middlewares/NotAuthorized";
+import { loggedIn } from "../../middlewares/loggedIn";
 const router = Router();
 
 router.patch(
@@ -18,6 +20,8 @@ router.patch(
     body("image").notEmpty().trim().withMessage("Must have an image"),
   ],
   requestValidation,
+  loggedIn,
+  notAuthorized,
   updateProduct
 );
 

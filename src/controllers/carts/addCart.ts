@@ -1,7 +1,6 @@
 import { RequestHandler } from "express";
 import Cart from "../../models/cart";
 import Product from "../../models/product";
-import User from "../../models/user";
 
 export const addToCart: RequestHandler = async (req, res, next) => {
   try {

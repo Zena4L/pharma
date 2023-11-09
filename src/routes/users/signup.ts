@@ -12,9 +12,8 @@ router.post(
       .trim()
       .isLength({ min: 4, max: 8 })
       .withMessage("password must be a min of 4 and a max of 8"),
-    body("profile")
-      .isObject()
-      .withMessage("profile must have a name and address"),
+    body("name").notEmpty().withMessage("Must have a name"),
+    body("address").notEmpty().withMessage("Must have an address"),
   ],
   requestValidation,
   signup

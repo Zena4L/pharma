@@ -5,9 +5,12 @@ import Product from "../../models/product";
 export const addToCart: RequestHandler = async (req, res, next) => {
   try {
     if (!req.body.userId) req.body.userId = req.currentUser?.id;
-    const userId = req.body.userId;
+
+    const { userId } = req.body;
     const { productId, quantity } = req.body;
+
     const cart = await Cart.findOne({ userId });
+
     if (!cart) {
       const newCart = Cart.build({ userId, products: [] });
       await newCart.save();

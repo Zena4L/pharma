@@ -9,10 +9,9 @@ interface CartItem {
 interface UserAttrs {
   email: string;
   password: string;
-  profile: {
-    name: string;
-    address: string;
-  };
+
+  name: string;
+  address: string;
 }
 
 interface UserModel extends mongoose.Model<UserDoc> {
@@ -22,10 +21,8 @@ interface UserModel extends mongoose.Model<UserDoc> {
 interface UserDoc extends mongoose.Document {
   email: string;
   password: string;
-  profile: {
-    name: string;
-    address: string;
-  };
+  name: string;
+  address: string;
   role: string;
 }
 
@@ -33,7 +30,6 @@ const userSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true,
     },
     password: {
       type: String,
@@ -44,9 +40,11 @@ const userSchema = new mongoose.Schema(
       enum: ["user", "admin"],
       default: "user",
     },
-    profile: {
-      name: String,
-      address: String,
+    name: {
+      type: String,
+    },
+    address: {
+      type: String,
     },
     cart: {
       type: mongoose.Schema.Types.ObjectId,

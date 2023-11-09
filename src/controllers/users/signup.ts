@@ -5,7 +5,7 @@ import { BadRequestError } from "../../errors/badRequestError";
 import jwt from "jsonwebtoken";
 
 export const signup: RequestHandler = async (req, res, next) => {
-  const { email, password, profile } = req.body;
+  const { email, password, name, address } = req.body;
 
   const existingUser = await User.findOne({ email });
 
@@ -13,11 +13,11 @@ export const signup: RequestHandler = async (req, res, next) => {
     return next(new BadRequestError("This Email already exists"));
   }
 
-  const user = User.build({ email, password, profile });
+  const user = User.build({ email, password, name, address });
   await user.save();
 
-  const cart = new Cart({ user: user._id, items: [] });
-  await cart.save();
+  // const cart =  Cart.build({ userId: user.id, products: [] });
+  // await cart.save();
 
   const userJwt = jwt.sign(
     {

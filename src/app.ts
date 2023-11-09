@@ -50,7 +50,7 @@ app.use(getProduct);
 app.use(updateProduct);
 app.use(deleteProduct);
 
-app.use(addCart);
+// app.use(addCart);
 app.use(checkout);
 
 app.use(allOrders);

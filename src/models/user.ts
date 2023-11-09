@@ -1,15 +1,9 @@
 import mongoose from "mongoose";
 import { Password } from "../utils/password";
 
-interface CartItem {
-  product: mongoose.Schema.Types.ObjectId;
-  quantity: number;
-}
-
 interface UserAttrs {
   email: string;
   password: string;
-
   name: string;
   address: string;
 }
@@ -50,6 +44,7 @@ const userSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: "Cart",
     },
+    // cart: [],
   },
   {
     toJSON: {

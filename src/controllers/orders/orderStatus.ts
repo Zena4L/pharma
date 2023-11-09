@@ -8,6 +8,7 @@ export const orderStatus: RequestHandler = async (req, res, next) => {
 
     if (order?.status) order.status = status;
 
+    order?.save();
     console.log(order?.status);
 
     res.status(200).send(order);

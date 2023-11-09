@@ -1,6 +1,7 @@
 import { RequestHandler } from "express";
 import Cart from "../../models/cart";
 import Product from "../../models/product";
+import User from "../../models/user";
 
 export const addToCart: RequestHandler = async (req, res, next) => {
   try {
@@ -9,12 +10,7 @@ export const addToCart: RequestHandler = async (req, res, next) => {
     const { userId } = req.body;
     const { productId, quantity } = req.body;
 
-    const cart = await Cart.findOne({ userId });
-
-    if (!cart) {
-      const newCart = Cart.build({ userId, products: [] });
-      await newCart.save();
-    }
+    let cart = await Cart.findOne({ userId });
 
     const product = await Product.findById(productId);
 

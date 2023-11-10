@@ -5,6 +5,6 @@ import { notAuthorized } from "../../middlewares/NotAuthorized";
 
 const router = Router();
 
-router.post("/api/v1/orders", loggedIn, notAuthorized, orderStatus);
+router.post("/api/v1/orders", loggedIn, orderStatus);
 
 export { router as orderStatus };

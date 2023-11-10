@@ -4,6 +4,8 @@ import { myOrder } from "../../controllers/orders/myOrder";
 
 const router = Router();
 
+//test route
+
 router.get("/api/v1/myorders", loggedIn, myOrder);
 
 export { router as myOrder };

@@ -22,6 +22,7 @@ import { checkout } from "./routes/carts/checkout";
 
 import { allOrders } from "./routes/orders/allOrders";
 import { orderStatus } from "./routes/orders/orderStatus";
+import { myOrder } from "./routes/orders/myOrder";
 
 import "express-async-errors";
 
@@ -55,6 +56,7 @@ app.use(checkout);
 
 app.use(allOrders);
 app.use(orderStatus);
+app.use(myOrder);
 
 app.all("*", (req, res, next) => {
   return next(new NotFoundError(req));

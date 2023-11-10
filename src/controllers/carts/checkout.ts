@@ -45,6 +45,9 @@ export const checkout: RequestHandler = async (req, res, next) => {
     //   return next(new BadRequestError("Upload a prescription "));
     // }
     const { image } = req.body;
+    if (!image) {
+      return next(new BadRequestError("Upload a prescription "));
+    }
 
     const userCart = await Cart.findOne({ userId }).populate(
       "products.productId"

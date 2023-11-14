@@ -5,6 +5,7 @@ import { notAuthorized } from "../../middlewares/NotAuthorized";
 
 const router = Router();
 
-router.get("/api/v1/orders", loggedIn, notAuthorized, allOrders);
+// router.get("/api/v1/orders", loggedIn, notAuthorized, allOrders);
+router.get("/api/v1/orders", loggedIn, allOrders);
 
 export { router as allOrders };

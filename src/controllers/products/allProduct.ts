@@ -8,7 +8,10 @@ export const getAllProduct: RequestHandler = async (req, res, next) => {
     const features = new APIFeatures(Product.find(), req.query).filter().pagination().limitedField().sort()
     const products = await features.query;
 
-    res.status(200).send(products);
+    res.status(200).json({
+      length: products.length,
+      products
+    });
   } catch (err) {
     console.log(err);
   }

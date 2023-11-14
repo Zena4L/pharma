@@ -16,8 +16,8 @@ router.post(
       .notEmpty()
       .trim()
       .withMessage("Must have a description"),
-    body("price").notEmpty().withMessage("Must have a price"),
-    body("stockQuantity").notEmpty().withMessage("Must have a stockQuantity"),
+    body("price").isNumeric().withMessage("Must have a price and must be a number"),
+    body("stockQuantity").isNumeric().withMessage("Must have a stockQuantity and should be a number"),
     body("category").notEmpty().trim().withMessage("Must have a category"),
     body("image").notEmpty().trim().withMessage("Must have an image"),
   ],

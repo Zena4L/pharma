@@ -4,11 +4,11 @@ import mongoose from "mongoose";
 import {createServer} from 'http'
 
 dotenv.config({
-    path:'config.env'
+  path:'config.env'
 })
 
 const start = async () => {
-
+// console.log(process.env)
     try {
       await mongoose.connect(process.env.MONGO_URI!);
       console.log(" Database Connected");

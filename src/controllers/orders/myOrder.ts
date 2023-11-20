@@ -3,9 +3,12 @@ import Order from "../../models/orders";
 
 export const myOrder: RequestHandler = async (req, res, next) => {
   const userId = req.currentUser?.id;
+  console.log(req.currentUser)
+  // const userId = req.body
 
   try {
-    const orders = await Order.find({ user: userId }, "id status");
+    // const orders = await Order.find({ user: userId });
+    const orders = await Order.find({ user: userId });
 
     // console.log(orders);
 

@@ -9,6 +9,7 @@ export const addToCart: RequestHandler = async (req, res, next) => {
     const { userId } = req.body;
     const { productId, quantity } = req.body;
 
+    console.log(userId)
     let cart = await Cart.findOne({ userId });
 
     const product = await Product.findById(productId);

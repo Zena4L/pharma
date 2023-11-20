@@ -4,7 +4,7 @@ export const updateProduct: RequestHandler = async (req, res, next) => {
   const { name, description, price, stockQuantity, category, image } = req.body;
 
   try {
-    const updateProduct = await Product.findById(
+    const updateProduct = await Product.findByIdAndUpdate(
       req.params.id,
       {
         name,
@@ -16,6 +16,9 @@ export const updateProduct: RequestHandler = async (req, res, next) => {
       },
       { new: true }
     );
+
+    await updateProduct?.save()
+
     res.status(200).send(updateProduct);
   } catch (err) {
     console.log(err);

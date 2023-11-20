@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { loggedIn } from "../../middlewares/loggedIn";
 import { myOrder } from "../../controllers/orders/myOrder";
+import { loggedIn } from "../../middlewares/loggedIn";
 
 const router = Router();
 
